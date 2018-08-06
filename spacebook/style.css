@@ -1,0 +1,11 @@
+.comments-container {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.add-comment {
+    margin-left: 20px;
+}
