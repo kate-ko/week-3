@@ -40,18 +40,11 @@ var SpacebookApp = function () {
     }
   }
 
-  var _getIndexOfCurrentPost = function(currentPost) {
-    var $clickedPost = $(currentPost).closest('.post');
-    var id = $clickedPost.data().id;
-    var post = _findPostById(id);
-    return posts.indexOf(post);
-  }
-
   var createPost = function(text) {
     var post = {
       text: text,
       id: currentId,
-      statusOpen: -1,
+      statusOpen: false,
       comments:[]
     }
     currentId += 1;
@@ -59,8 +52,12 @@ var SpacebookApp = function () {
   }
 
   var createComment = function(currentPost, text) {
-    var index = _getIndexOfCurrentPost(currentPost);
+    var $clickedPost = $(currentPost).closest('.post');
+    var id = $clickedPost.data().id;
+    var post = _findPostById(id);
+    var index = posts.indexOf(post);
     posts[index].comments.push({text:text,id:currentCommentId});
+    //renderComments(currentPost);
     currentCommentId++;
   }
 
@@ -70,7 +67,7 @@ var SpacebookApp = function () {
     for (var i = 0; i < posts.length; i += 1) {
       var post = posts[i];
       var commentsShow = '<div class="comments-container">';
-      // if the comments were previously open for that post
+      // if comments were previously open
       if (post.statusOpen == 1) {
         commentsShow = '<div class="comments-container show">';
       }
@@ -78,7 +75,7 @@ var SpacebookApp = function () {
       var commentsContainer = commentsShow +
       '<input type="text" class="comment-name">' +
       '<button class="btn btn-primary add-comment">Post Comment</button>' +
-      '<div class="comm"></div>' + _getCommentsHTML(post)+'</div>';
+      '<div class="comm"></div>' + getCommentsHTML(post)+'</div>';
 
       $posts.append('<br><div class="post" data-id=' + post.id + '>'
         + '<a href="#" class="remove">remove</a> ' + 
@@ -87,7 +84,7 @@ var SpacebookApp = function () {
     }
   }
   
-  var _getCommentsHTML = function(post) {
+  var getCommentsHTML = function(post) {
     var str = "";
 
     for (let element of post.comments) {
@@ -97,7 +94,7 @@ var SpacebookApp = function () {
 
     return str;
   }
-  /*dont use anymore
+
   var renderComments = function(currentPost) {
     var $clickedPost = $(currentPost).closest('.post');
     $(currentPost).closest('.post').find('.comm').empty();
@@ -109,11 +106,13 @@ var SpacebookApp = function () {
       $clickedPost.find('.comm').append('<div class="datacomm" data-id=' + element.id + '>'
        + element.text + ' <a href="#" class="removeComment">Remove</a>' + '</div');
     }
-  }*/
+  }
 
   var removePost = function(currentPost) {
-    var index = _getIndexOfCurrentPost(currentPost);
-    posts.splice(index, 1);
+    var $clickedPost = $(currentPost).closest('.post');
+    var id = $clickedPost.data().id;
+    var post = _findPostById(id);
+    posts.splice(posts.indexOf(post), 1);
   }
 
   var removeComment = function(currentComment) {
@@ -124,8 +123,9 @@ var SpacebookApp = function () {
 
   var toggleComments = function(currentPost) {
     var $clickedPost = $(currentPost).closest('.post');
-    var index = _getIndexOfCurrentPost(currentPost);
-    posts[index].statusOpen *= -1;
+    var id = $clickedPost.data().id;
+    var post = _findPostById(id);
+    posts[posts.indexOf(post)].statusOpen *= -1;
     $clickedPost.find('.comments-container').toggleClass('show');
   }
 
@@ -134,6 +134,7 @@ var SpacebookApp = function () {
     renderPosts: renderPosts,
     removePost: removePost,
     createComment: createComment,
+    renderComments: renderComments,
     removeComment: removeComment,
     toggleComments: toggleComments
   }
@@ -147,6 +148,7 @@ app.renderPosts();
 // Events
 $('.add-post').on('click', function () {
   var text = $('#post-name').val();
+  
   app.createPost(text);
   app.renderPosts();
 });
