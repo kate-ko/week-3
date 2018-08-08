@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
   <title></title>
 </head>
+
 <body>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <div class="page-header">
         <h1>Spacebook</h1>
-      </div>   
+      </div>
 
       <div class="posts">
       </div>
@@ -27,7 +29,31 @@
 
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-  <script src="main.js"></script>
+
+<script id="spacebook-template" type="text/x-handlebars-template">
+  {{#each posts}}
+    <div class="post" data-id={{id}}>
+      <a href="#" class="remove">remove</a> <a href="#" class="show-comments">comments</a>{{text}}
+      {{#if statusOpen}}
+      <div class="comments-container show">
+      {{else}}
+      <div class="comments-container">
+      {{/if}}
+        <input type="text" class="comment-name"><button class="btn btn-primary add-comment">Post Comment</button>
+          <div class="comm">
+            {{#each comments}}
+              <div class="datacomm" data-id={{id}}>
+               {{text}}<a href="#" class="removeComment">Remove</a>
+              </div>
+            {{/each}}
+          </div>
+      </div>
+    </div>
+  {{/each}}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="main.js"></script>
 </body>
+
 </html>
