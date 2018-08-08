@@ -97,6 +97,19 @@ var SpacebookApp = function () {
 
     return str;
   }
+  /*dont use anymore
+  var renderComments = function(currentPost) {
+    var $clickedPost = $(currentPost).closest('.post');
+    $(currentPost).closest('.post').find('.comm').empty();
+    var id = $clickedPost.data().id;
+    var post = _findPostById(id);
+    var index = posts.indexOf(post);
+
+    for (let element of posts[index].comments) {
+      $clickedPost.find('.comm').append('<div class="datacomm" data-id=' + element.id + '>'
+       + element.text + ' <a href="#" class="removeComment">Remove</a>' + '</div');
+    }
+  }*/
 
   var removePost = function(currentPost) {
     var index = _getIndexOfCurrentPost(currentPost);
