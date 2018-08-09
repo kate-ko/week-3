@@ -80,10 +80,10 @@ var SpacebookApp = function () {
       '<button class="btn btn-primary add-comment">Post Comment</button>' +
       '<div class="comm"></div>' + _getCommentsHTML(post)+'</div>';
 
-      $posts.append('<br><div class="post" data-id=' + post.id + '>'
+      $posts.append('<li class="post" data-id=' + post.id + '>'
         + '<a href="#" class="remove">remove</a> ' + 
         '<a href="#" class="show-comments">comments</a> ' +
-        post.text + commentsContainer + '</div>');
+        post.text + commentsContainer + '</li');
     }
   }
   
@@ -157,3 +157,6 @@ $('.posts').on('click', '.removeComment', function () {
   app.removeComment(this);
   app.renderPosts();
 });
+
+$('.posts').sortable();
+$('.posts').disableSelection();
