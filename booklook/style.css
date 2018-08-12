@@ -1,0 +1,26 @@
+/*.title, .author, .description, .image, .pages, .minutes {
+  display: block;
+}*/
+
+.book-info {
+  display: none;
+  margin-bottom: 70px;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+.books {
+  margin-bottom: 100px;
+}
+
+.show {
+  display: block;
+}
+
+#loading {
+  margin-top: 30px;
+  display: none;
+  color: red;
+}

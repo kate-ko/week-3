@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title></title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1">
+        <div class="page-header">
+          <h1>BookLook
+            <i class="fa fa-eye"></i>
+          </h1>
+        </div>
+
+        <div class="books">
+            <div id="loading">Loading...Wait</div>
+        </div>
+
+        <form>
+          <h3>Enter ISBN Number</h3>
+
+          <div class="form-group">
+            <input type="text" id="searchData" class="form-control" 
+            placeholder="ISBN Number or name or author">
+          </div>
+
+          <button type="button" class="btn btn-primary search-book">Search</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/handlebars/dist/handlebars.min.js"></script>
+  <script src="script.js"></script>
+  <script id="book-template" type="text/x-handlebars-template">
+    <div class="book">
+      <h5 class="title"><b>{{title}}</b></h5> 
+      <div class="book-info">
+        <h7>Written by {{authors}}</h7>
+        <p>{{description}}</p>
+        <img src={{imageLinks.thumbnail}}>
+        <hr size="200">
+      </div>
+  </div>
+</script>
+</body>
+
+</html>
